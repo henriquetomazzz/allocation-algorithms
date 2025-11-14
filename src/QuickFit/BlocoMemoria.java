@@ -11,12 +11,19 @@ public class BlocoMemoria {
         this.enderecoInicial = enderecoInicial;
     }
 
-    // Getters e Setters
-    public int getIdProcesso() { return idProcesso; }
-    public int getTamanho() { return tamanho; }
-    public int getEnderecoInicial() { return enderecoInicial; }
+    public int getIdProcesso() {
+        return idProcesso;
+    }
+    public int getTamanho() {
+        return tamanho;
+    }
+    public int getEnderecoInicial() {
+        return enderecoInicial;
+    }
 
-    public void setIdProcesso(int idProcesso) { this.idProcesso = idProcesso; }
+    public void setIdProcesso(int idProcesso) {
+        this.idProcesso = idProcesso;
+    }
 
 
     public void liberar() {
