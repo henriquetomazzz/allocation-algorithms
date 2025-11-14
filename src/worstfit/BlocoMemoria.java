@@ -1,21 +1,51 @@
 package worstfit;
 
 public class BlocoMemoria {
-    int idProcesso;
-    int enderecoInicial;
-    int tamanho;
-    boolean livre;
+    private Processo processo;
+    private int tamanho;
+    private boolean ocupado;
+    private int id;
+    private static int contadorId = 0;
 
-    public BlocoMemoria(int enderecoInicial, int tamanho) {
-        this.enderecoInicial = enderecoInicial;
+    public BlocoMemoria(int tamanho) {
+        this.id = ++contadorId;
         this.tamanho = tamanho;
-        this.livre = true;
-        this.idProcesso = -1;
+        this.ocupado = false;
+        this.processo = null;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    public Processo getProcesso() {
+        return processo;
+    }
+
+    public void alocar(Processo p) {
+        this.processo = p;
+        this.ocupado = true;
+    }
+
+    public void liberar() {
+        this.processo = null;
+        this.ocupado = false;
     }
 
     @Override
     public String toString() {
-        String estado = livre ? "Livre" : "Ocupado por P" + idProcesso;
-        return String.format("Bloco[Endereço=%-4d, Tamanho=%-4dKB, %s]", enderecoInicial, tamanho, estado);
+        if (ocupado) {
+            return "Bloco " + id + " | Tamanho: " + tamanho + "KB | Ocupado por: " + processo.getNome();
+        } else {
+            return "Bloco " + id + " | Tamanho: " + tamanho + "KB | Livre";
+        }
     }
 }

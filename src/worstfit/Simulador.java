@@ -1,37 +1,36 @@
 package worstfit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Simulador {
+
     public static void main(String[] args) {
-        WorstFitGerenciador gerenciador = new WorstFitGerenciador(1024);
-        System.out.println("Memória inicializada com 1024KB.");
-        gerenciador.imprimirEstadoMemoria();
+        List<BlocoMemoria> blocos = new ArrayList<>();
+        blocos.add(new BlocoMemoria(100));
+        blocos.add(new BlocoMemoria(500));
+        blocos.add(new BlocoMemoria(200));
+        blocos.add(new BlocoMemoria(300));
 
+        List<Processo> processos = new ArrayList<>();
+        processos.add(new Processo("P1", 120));
+        processos.add(new Processo("P2", 80));
+        processos.add(new Processo("P3", 200));
+        processos.add(new Processo("P4", 350));
 
-        gerenciador.alocar(1, 212); // P1
-        gerenciador.imprimirEstadoMemoria();
+        WorstFit worstFit = new WorstFit();
+        worstFit.exibirEstadoMemoria(blocos);
 
-        gerenciador.alocar(2, 417); // P2
-        gerenciador.imprimirEstadoMemoria();
+        for (Processo p : processos) {
+            worstFit.alocarProcesso(p, blocos);
+        }
+        worstFit.exibirEstadoMemoria(blocos);
 
-        gerenciador.alocar(3, 112);
-        gerenciador.imprimirEstadoMemoria();
+        worstFit.liberarProcesso("P1", blocos);
+        worstFit.exibirEstadoMemoria(blocos);
 
-        gerenciador.alocar(4, 426);
-        gerenciador.imprimirEstadoMemoria();
-
-        gerenciador.liberar(2);
-        gerenciador.imprimirEstadoMemoria();
-
-        gerenciador.alocar(4, 100); // P4 com 100KB
-        gerenciador.imprimirEstadoMemoria();
-
-        gerenciador.liberar(3);
-        gerenciador.imprimirEstadoMemoria();
-
-        gerenciador.liberar(4);
-        gerenciador.imprimirEstadoMemoria();
-
-        gerenciador.liberar(1);
-        gerenciador.imprimirEstadoMemoria();
+        Processo novoProcesso = new Processo("P5", 90);
+        worstFit.alocarProcesso(novoProcesso, blocos);
+        worstFit.exibirEstadoMemoria(blocos);
     }
 }
